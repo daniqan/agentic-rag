@@ -130,7 +130,7 @@ class TestPineconeStore:
                 store = PineconeStore()
                 store.delete(["id1", "id2"])
 
-                mock_index.delete.assert_called_once_with(ids=["id1", "id2"])
+                mock_index.delete.assert_called_once_with(ids=["id1", "id2"], namespace=None)
 
     @pytest.mark.asyncio
     async def test_asimilarity_search(self, mock_settings, sample_embeddings):
