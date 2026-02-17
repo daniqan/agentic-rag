@@ -54,7 +54,7 @@ A complete agentic RAG (Retrieval-Augmented Generation) system built with modern
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/agentic-rag-demo.git
+git clone https://github.com/daniqan/agentic-rag-demo.git
 cd agentic-rag-demo
 ```
 
