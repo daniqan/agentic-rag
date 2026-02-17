@@ -6,14 +6,15 @@ langchain-community>=0.3.0
 langsmith>=0.2.0
 
 # Vector database
-pinecone-client>=5.0.0
+pinecone>=5.0.0
 
 # Data extraction
 firecrawl-py>=1.0.0
 pypdf>=4.0.0
+langchain-text-splitters>=0.3.0
 
 # Memory
-zep-python>=2.0.0
+zep-cloud>=2.0.0
 
 # Guardrails
 guardrails-ai>=0.5.0
