@@ -1,0 +1,84 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "agentic-rag-demo"
+version = "0.1.0"
+description = "Agentic RAG system with LangChain, Gemini, Pinecone, and more"
+readme = "README.md"
+requires-python = ">=3.11"
+license = {text = "MIT"}
+authors = [
+    {name = "Your Name", email = "your.email@example.com"}
+]
+keywords = ["rag", "langchain", "gemini", "pinecone", "ai", "llm"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+
+dependencies = [
+    "langchain>=0.3.0",
+    "langchain-google-genai>=2.0.0",
+    "langchain-pinecone>=0.2.0",
+    "langchain-community>=0.3.0",
+    "langsmith>=0.2.0",
+    "pinecone-client>=5.0.0",
+    "firecrawl-py>=1.0.0",
+    "zep-python>=2.0.0",
+    "guardrails-ai>=0.5.0",
+    "ollama>=0.3.0",
+    "pypdf>=4.0.0",
+    "pydantic>=2.0.0",
+    "pydantic-settings>=2.0.0",
+    "python-dotenv>=1.0.0",
+    "aiohttp>=3.9.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+    "pytest-asyncio>=0.24.0",
+    "pytest-cov>=4.0.0",
+    "black>=24.0.0",
+    "ruff>=0.3.0",
+    "mypy>=1.8.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/yourusername/agentic-rag-demo"
+Documentation = "https://github.com/yourusername/agentic-rag-demo#readme"
+Repository = "https://github.com/yourusername/agentic-rag-demo"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["src*", "demo*"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_functions = ["test_*"]
+addopts = "-v --tb=short"
+
+[tool.black]
+line-length = 88
+target-version = ["py311"]
+include = '\.pyi?$'
+
+[tool.ruff]
+line-length = 88
+target-version = "py311"
+select = ["E", "F", "I", "N", "W", "UP"]
+ignore = ["E501"]
+
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = true
+warn_unused_configs = true
+ignore_missing_imports = true
