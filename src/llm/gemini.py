@@ -3,7 +3,7 @@
 from typing import Any, Iterator, Optional, Union
 
 from langchain_core.callbacks import BaseCallbackHandler
-from langchain_core.messages import AIMessage, HumanMessage, SystemMessage
+from langchain_core.messages import AIMessage, BaseMessage, HumanMessage, SystemMessage
 from langchain_google_genai import ChatGoogleGenerativeAI
 
 from src.config import get_settings
@@ -43,7 +43,7 @@ class GeminiLLM:
 
     def invoke(
         self,
-        input_data: Union[str, list[dict[str, str]]],
+        input_data: Union[str, list],
     ) -> str:
         """Invoke the model with input.
 
@@ -59,7 +59,7 @@ class GeminiLLM:
 
     async def ainvoke(
         self,
-        input_data: Union[str, list[dict[str, str]]],
+        input_data: Union[str, list],
     ) -> str:
         """Invoke the model asynchronously.
 
@@ -75,7 +75,7 @@ class GeminiLLM:
 
     def stream(
         self,
-        input_data: Union[str, list[dict[str, str]]],
+        input_data: Union[str, list],
     ) -> Iterator[str]:
         """Stream responses from the model.
 
@@ -91,7 +91,7 @@ class GeminiLLM:
 
     async def astream(
         self,
-        input_data: Union[str, list[dict[str, str]]],
+        input_data: Union[str, list],
     ):
         """Stream responses asynchronously.
 
@@ -115,18 +115,21 @@ class GeminiLLM:
 
     def _prepare_messages(
         self,
-        input_data: Union[str, list[dict[str, str]]],
+        input_data: Union[str, list],
     ) -> list:
         """Prepare messages for the model.
 
         Args:
-            input_data: Either a string or list of message dicts.
+            input_data: A string, list of message dicts, or list of BaseMessage objects.
 
         Returns:
             List of LangChain message objects.
         """
         if isinstance(input_data, str):
             return [HumanMessage(content=input_data)]
+
+        if input_data and isinstance(input_data[0], BaseMessage):
+            return list(input_data)
 
         messages = []
         for msg in input_data:

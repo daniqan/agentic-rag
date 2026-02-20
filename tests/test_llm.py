@@ -72,6 +72,30 @@ class TestGeminiLLM:
 
                 assert response == "Response to messages"
 
+    def test_invoke_with_base_messages(self, mock_settings):
+        """invoke should handle BaseMessage objects from ChatPromptTemplate."""
+        with patch("src.llm.gemini.get_settings") as mock_get:
+            mock_get.return_value = mock_settings
+            with patch("src.llm.gemini.ChatGoogleGenerativeAI") as mock_chat:
+                from langchain_core.messages import HumanMessage, SystemMessage
+
+                mock_model = MagicMock()
+                mock_model.invoke.return_value = MagicMock(content="BaseMessage response")
+                mock_chat.return_value = mock_model
+
+                llm = GeminiLLM()
+                messages = [
+                    SystemMessage(content="You are helpful."),
+                    HumanMessage(content="Hello"),
+                ]
+                response = llm.invoke(messages)
+
+                assert response == "BaseMessage response"
+                # Verify the BaseMessage objects were passed through directly
+                call_args = mock_model.invoke.call_args[0][0]
+                assert isinstance(call_args[0], SystemMessage)
+                assert isinstance(call_args[1], HumanMessage)
+
     @pytest.mark.asyncio
     async def test_ainvoke(self, mock_settings):
         """ainvoke should return response asynchronously."""
