@@ -148,7 +148,7 @@ class PineconeStore(VectorStore):
 
         docs_and_scores = []
         for match in results.matches:
-            metadata = match.metadata or {}
+            metadata = dict(match.metadata or {})
             text = metadata.pop(self.text_key, "")
             doc = Document(page_content=text, metadata=metadata)
             docs_and_scores.append((doc, match.score))
@@ -184,7 +184,7 @@ class PineconeStore(VectorStore):
 
         docs = []
         for match in results.matches:
-            metadata = match.metadata or {}
+            metadata = dict(match.metadata or {})
             text = metadata.pop(self.text_key, "")
             doc = Document(page_content=text, metadata=metadata)
             docs.append(doc)
