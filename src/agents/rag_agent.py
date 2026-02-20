@@ -7,7 +7,6 @@ from langchain_core.documents import Document
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.retrievers import BaseRetriever
 
-from src.config import get_settings
 from src.embeddings.ollama_embeddings import OllamaEmbeddings
 from src.guardrails.validators import validate_input, validate_output
 from src.llm.gemini import GeminiLLM
@@ -57,7 +56,6 @@ class RAGAgent:
             vector_store: Optional vector store.
         """
         self.config = config or RAGAgentConfig()
-        settings = get_settings()
 
         # Initialize embeddings
         self.embeddings = embeddings or OllamaEmbeddings()
